@@ -8,6 +8,12 @@ function init() {
   bindEvents();
   showCounts();
   focus("id");
+  disableButtons();
+}
+
+function disableButtons() {
+  document.querySelector("#update").disabled = true;
+  document.querySelector("#delete").disabled = true;
 }
 
 function save() {
@@ -55,7 +61,20 @@ function bindEvents() {
   document.querySelector("#load").addEventListener("click", load);
   document.querySelector("#delete").addEventListener("click", deleteTask);
   document.querySelector("#add").addEventListener("click", addTask);
+  document.querySelector("#update").addEventListener("click", updateTask);
+  document.querySelector("#clear_all").addEventListener("click", clearAll);
 }
+
+function updateTask() {
+  const taskObj = readFields();
+
+  for (let key in taskObj) {
+    taskObjectForUpdate[key] = taskObj[key];
+  }
+
+  printTasks(taskOperation.tasks);
+}
+
 
 function deleteTask() {
   let tasks = taskOperation.deleteMark();
@@ -71,11 +90,25 @@ function toggleDelete() {
   tr.classList.toggle("alert-danger");
   taskOperation.mark(id);
   showCounts();
+
+  if (taskOperation.countMark() > 0) {
+    document.querySelector("#delete").disabled = false;
+  }
 }
 
+let taskObjectForUpdate;
 function edit() {
-  console.log("This is edit", this);
+  const id = this.getAttribute("task-id");
+  taskObjectForUpdate = taskOperation.tasks.find((task) => task.id == id);
+
+  for (let key in taskObjectForUpdate) {
+    if (key === "isMarked") continue;
+    document.querySelector("#" + key).value = taskObjectForUpdate[key];
+  }
+
+  document.querySelector("#update").disabled = false;
 }
+
 
 function showCounts() {
   document.querySelector("#total").innerText = taskOperation.tasks.length;
@@ -92,15 +125,22 @@ function createIcon(className, fn, id) {
   return icon;
 }
 
+function readFields() {
+  const fields = ["id", "name", "description", "date"];
+  const taskObj = {};
+
+  for (let field of fields) {
+    taskObj[field] = document.querySelector("#" + field).value;
+  }
+
+  return taskObj;
+}
+
 function addTask() {
   // Reading the fields
-  let id = document.querySelector("#id").value;
-  let name = document.querySelector("#name").value;
-  let description = document.querySelector("#description").value;
-  let date = document.querySelector("#date").value;
-  let url = document.querySelector("#url").value;
+  const task = readFields();
 
-  const task = taskOperation.add(id, name, description, date, url);
+  // Print in the table
   printTask(task);
   showCounts();
   clearAll();
@@ -121,7 +161,7 @@ function printTask(task) {
   let id = task.id;
   let cellIndex = 0;
   for (let key in task) {
-    if(key == 'isMarked' && task[key]){
+    if (key == 'isMarked' && task[key]) {
       tr.classList.toggle("alert-danger");
     }
     if (key == "isMarked" || typeof task[key] === "function") {
@@ -137,9 +177,8 @@ function printTask(task) {
   td.appendChild(createIcon("trash", toggleDelete, id));
 }
 
-const clearAll = () =>
-  document
-    .querySelectorAll(".form-control")
-    .forEach((txtBox) => (txtBox.value = ""));
-
+const clearAll = () => {
+  document.querySelectorAll(".form-control").forEach((txtBox) => (txtBox.value = ""));
+  disableButtons();
+}
 const focus = (fieldId) => document.querySelector("#" + fieldId).focus();

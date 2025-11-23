@@ -2,19 +2,23 @@
 import Task from "./task.js";
 export const taskOperation = {
   tasks: [],
-  add(id, name, description, date, url) {
-    let task = new Task(id, name, description, date, url);
+
+  add(id, name, description, date) {
+    let task = new Task(id, name, description, date);
     this.tasks.push(task);
     console.log("Task Added", this.tasks);
     return task;
   },
+
   getAllTask() {
     return this.tasks;
   },
+
   deleteMark() {
     this.tasks = this.tasks.filter((task) => !task.isMarked);
     return this.tasks;
   },
+
   mark(id) {
     let task = this.tasks.find((task) => task.id == id);
     if (task) {
@@ -27,6 +31,7 @@ export const taskOperation = {
     //   }
     // }
   },
+
   countMark() {
     return this.tasks.filter((task) => task.isMarked).length;
     // let count = 0;
@@ -37,6 +42,7 @@ export const taskOperation = {
     // }
     // return count;
   },
+
   countUnMarked() {
     return this.tasks.length - this.countMark();
   },

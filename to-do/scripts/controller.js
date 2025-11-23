@@ -2,6 +2,7 @@
 import { taskOperation } from "./models/task_operations.js";
 import { showAlert } from "./utils/dialogue.js";
 import Task from "./models/task.js";
+import { storeToDB } from "./firebase/CRUD.js";
 window.addEventListener("load", init);
 
 function init() {
@@ -38,21 +39,14 @@ function load() {
           task.name,
           task.description,
           task.date,
-          task.url,
           task.isMarked
         )
-    );
-    console.log(
-      "After Parse",
-      typeof tasks,
-      tasks instanceof Task,
-      tasks instanceof Object
     );
     taskOperation.tasks = tasks;
     showCounts();
     printTasks(taskOperation.tasks);
   } else {
-    showAlert("Your Browswe is Out-dated");
+    showAlert("Your Browser is Out-dated");
   }
 }
 
@@ -63,6 +57,12 @@ function bindEvents() {
   document.querySelector("#add").addEventListener("click", addTask);
   document.querySelector("#update").addEventListener("click", updateTask);
   document.querySelector("#clear_all").addEventListener("click", clearAll);
+  document.querySelector("#save_to_db").addEventListener("click", saveToDB);
+}
+
+function saveToDB() {
+  taskOperation.tasks.forEach(taskObject => storeToDB(taskObject));
+  alert("Tasks saved to database successfully!");
 }
 
 function updateTask() {

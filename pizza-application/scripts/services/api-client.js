@@ -2,14 +2,18 @@
 
 import { URL } from "../../utils/constant";
 
-function networkCall() {
-  const data = fetch(URL);
+async function networkCall() {
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    
+    return data;
 
-  console.log("Promise is pending", data);
-  data.then((res) => {
-    console.log("Response is: ", res);
-  }).catch((err) => {
-    console.log("Error is: ", err);
-  });
-  console.log("Bye");
+  } catch(err){
+    console.log("Problem in API call", err);
+    throw err;
+    
+  }  
 }
+
+export default networkCall;

@@ -6,8 +6,8 @@
  * D - Delete
  */
 
-import Product from "../models/product";
-import networkCall from "./api-client"
+import Product from "../models/product.js";
+import networkCall from "./api-client.js"
 
 const productOperations = {
   async loadProducts() {
@@ -19,6 +19,7 @@ const productOperations = {
 
       return currentPizza;
     })
+    return products;
   },
   sortProducts() {
 
@@ -27,3 +28,5 @@ const productOperations = {
 
   },
 }
+
+export default productOperations;

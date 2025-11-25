@@ -1,1 +1,1 @@
-export const URL = "https://raw.githubusercontent.com/Skill-risers/pizzajson/main/pizza.json";
+export const URL = "https://raw.githubusercontent.com/sanctionedpranav/pizza-json/refs/heads/main/pizza.json";

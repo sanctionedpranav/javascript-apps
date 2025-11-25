@@ -23,6 +23,11 @@ function addToCart() {
 
 function printInCart() {
   const cartProducts = productOperations.getCartProducts();
+  const cartCount = productOperations.getCartProducts().length;
+
+  const cartCountSpan = document.querySelector("#count");
+  cartCountSpan.innerText = cartCount;
+
   const cartDiv = document.querySelector("#cart-items");
   const totalAmount = document.querySelector("#total-amount");
   let total = 0;
@@ -35,11 +40,9 @@ function printInCart() {
     li.className =
       "flex justify-between items-center py-2 px-3 border-b border-gray-200 text-gray-700 shadow-sm";
 
-    // Create name span
     const nameSpan = document.createElement("span");
     nameSpan.innerText = product.name;
 
-    // Create price span
     const priceSpan = document.createElement("span");
     priceSpan.innerText = "$" + product.price;
     priceSpan.className = "font-semibold text-gray-800";

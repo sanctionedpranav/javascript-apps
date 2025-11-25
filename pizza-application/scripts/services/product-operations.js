@@ -39,7 +39,6 @@ const productOperations = {
   },
   getCartProducts() {
     return this.products.filter(currentProduct => currentProduct.isAddedToCart == true);
-
   },
 
 }

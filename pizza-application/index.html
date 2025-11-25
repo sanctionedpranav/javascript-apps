@@ -25,10 +25,8 @@
       <!-- NavBar -->
       <nav class="w-full bg-blue-100 shadow-md px-6 py-4 rounded-lg mb-8">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
-          <!-- Shop Name -->
           <div class="text-2xl font-bold text-blue-700">Pizza Shop</div>
 
-          <!-- Menu Items -->
           <ul class="hidden sm:flex space-x-8 text-blue-700 font-medium">
             <li class="cursor-pointer hover:text-blue-900 transition">Pizza</li>
             <li class="cursor-pointer hover:text-blue-900 transition">
@@ -45,15 +43,15 @@
           >
             <span>cart</span>
             <span
+              id="count"
               class="absolute w-6 h-6 bg-red-500 rounded-full -right-2 -top-2 font-bold text-sm flex items-center justify-center"
-              >1</span
+              >0</span
             >
           </button>
         </div>
       </nav>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Main Content Area -->
         <div class="lg:col-span-2">
           <div
             id="output"
@@ -63,7 +61,6 @@
           </div>
         </div>
 
-        <!-- Cart Sidebar -->
         <div class="bg-white rounded-xl shadow p-5 h-fit sticky top-10">
           <h2 class="text-xl font-semibold mb-4 border-b pb-2">Cart</h2>
 

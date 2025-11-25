@@ -16,14 +16,17 @@ function addToCart() {
   const currentBtn = this;
   const pizzaId = currentBtn.getAttribute("product-id");
 
+
   productOperations.searchProduct(pizzaId);
   printInCart();
-
 }
 
 function printInCart() {
   const cartProducts = productOperations.getCartProducts();
   const cartDiv = document.querySelector("#cart-items");
+  const totalAmount = document.querySelector("#total-amount");
+  let total = 0;
+
   cartDiv.innerHTML = "";
 
   for (let product of cartProducts) {
@@ -44,10 +47,12 @@ function printInCart() {
     li.appendChild(nameSpan);
     li.appendChild(priceSpan);
 
+    total += Number(product.price);
+    totalAmount.innerText = "$" + total.toFixed(2);
+
+
     cartDiv.appendChild(li);
   }
-
-
 }
 
 

@@ -7,26 +7,41 @@
  */
 
 import Product from "../models/product.js";
-import networkCall from "./api-client.js"
+import networkCall from "./api-client.js";
 
 const productOperations = {
+  products: [],
   async loadProducts() {
     const pizza = await networkCall();
     const pizzaArray = pizza['Vegetarian'];
 
-    const products = pizzaArray.map(pizza => {
+    const allProductArray = pizzaArray.map(pizza => {
       const currentPizza = new Product(pizza.id, pizza.name, pizza.menu_description, pizza.price, pizza.assets.product_details_page[0].url);
 
       return currentPizza;
     })
-    return products;
+
+    this.products = allProductArray;
+
+    console.log("this.products");
+    console.log(this.products);
+    
+
+    return allProductArray;
   },
-  sortProducts() {
+  searchProduct(pizzaId) {
+    const product = this.products.find(currentProduct => currentProduct.id == pizzaId);
+    console.log("product found", product);
+
+    product.isAddedToCart = true;
+    console.log("Array", this.products);
 
   },
-  searchProduct() {
+  getCartProducts() {
+    return this.products.filter(currentProduct => currentProduct.isAddedToCart == true);
 
   },
+
 }
 
 export default productOperations;

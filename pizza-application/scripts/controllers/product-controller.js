@@ -12,6 +12,44 @@ async function loadPizzas() {
 
 loadPizzas();
 
+function addToCart() {
+  const currentBtn = this;
+  const pizzaId = currentBtn.getAttribute("product-id");
+
+  productOperations.searchProduct(pizzaId);
+  printInCart();
+
+}
+
+function printInCart() {
+  const cartProducts = productOperations.getCartProducts();
+  const cartDiv = document.querySelector("#cart-items");
+  cartDiv.innerHTML = "";
+
+  for (let product of cartProducts) {
+    const li = document.createElement("li");
+
+    li.className =
+      "flex justify-between items-center py-2 px-3 border-b border-gray-200 text-gray-700 shadow-sm";
+
+    // Create name span
+    const nameSpan = document.createElement("span");
+    nameSpan.innerText = product.name;
+
+    // Create price span
+    const priceSpan = document.createElement("span");
+    priceSpan.innerText = "$" + product.price;
+    priceSpan.className = "font-semibold text-gray-800";
+
+    li.appendChild(nameSpan);
+    li.appendChild(priceSpan);
+
+    cartDiv.appendChild(li);
+  }
+
+
+}
+
 
 function createPizzaCard(pizza) {
   const outputDiv = document.querySelector("#output");
@@ -49,6 +87,8 @@ function createPizzaCard(pizza) {
   cardBodyDiv.appendChild(productDesc);
 
   const addToCartBtn = document.createElement("button");
+  addToCartBtn.setAttribute("product-id", pizza.id);
+  addToCartBtn.addEventListener("click", (addToCart));
   addToCartBtn.className =
     "btn btn-primary w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer";
   addToCartBtn.innerText = "Add to Cart";

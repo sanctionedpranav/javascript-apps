@@ -7,6 +7,7 @@ class Product {
     this.desc = desc;
     this.price = price;
     this.url = url;
+    this.isAddedToCart = false;
   }
 }
 

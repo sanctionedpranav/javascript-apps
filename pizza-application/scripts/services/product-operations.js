@@ -5,7 +5,6 @@
  * U - Update
  * D - Delete
  */
-
 import Product from "../models/product.js";
 import networkCall from "./api-client.js";
 

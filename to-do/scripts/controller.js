@@ -2,7 +2,7 @@
 import { taskOperation } from "./models/task_operations.js";
 import { showAlert } from "./utils/dialogue.js";
 import Task from "./models/task.js";
-import { storeToDB } from "./firebase/CRUD.js";
+import { storeToDB } from "./firebase/firebaseOperations.js";
 window.addEventListener("load", init);
 
 function init() {

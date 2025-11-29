@@ -72,7 +72,11 @@ function updateTask() {
     taskObjectForUpdate[key] = taskObj[key];
   }
 
+  showCounts();
   printTasks(taskOperation.tasks);
+  clearAll();
+  focus("id");
+
 }
 
 
@@ -138,7 +142,10 @@ function readFields() {
 
 function addTask() {
   // Reading the fields
-  const task = readFields();
+  const { id, name, description, date } = readFields();
+
+  // Save into taskOperation
+  const task = taskOperation.add(id, name, description, date);
 
   // Print in the table
   printTask(task);

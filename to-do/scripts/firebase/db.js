@@ -8,7 +8,13 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/12.5.0/firebase
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  //Add your firebase config here and app is good to go
+  apiKey: "AIzaSyApleJir0OIA7H23crEhMTvo__7xKuex7M",
+  authDomain: "task-manager-47883.firebaseapp.com",
+  projectId: "task-manager-47883",
+  storageBucket: "task-manager-47883.firebasestorage.app",
+  messagingSenderId: "950166646550",
+  appId: "1:950166646550:web:f56a95d1543195e1566a37",
+  measurementId: "G-HKBGGJDF7S"
 };
 
 // Initialize Firebase
